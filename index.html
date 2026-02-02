@@ -7,7 +7,9 @@
   <title>FINCOP PRINTING</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <!-- ================= RECAPTCHA ================= -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Ld_4l0sAAAAAP1OkBRidWs_FX2tnuemfpPxOosw"></script>
 
   <style>
     /* ================= GENERAL ================= */
@@ -146,14 +148,7 @@
       font-size: 36px;
       text-transform: uppercase;
       cursor: pointer;
-      background: linear-gradient(270deg,
-          #2b2d31,
-          #3c3f45,
-          #4a3136,
-          #9b2436,
-          #ff334f);
-
-
+      background: linear-gradient(270deg, #2b2d31, #3c3f45, #4a3136, #9b2436, #ff334f);
       background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -170,7 +165,6 @@
       }
     }
 
-    /* ================= NAV ================= */
     nav {
       position: relative;
     }
@@ -207,7 +201,7 @@
       color: #fff;
     }
 
-    /* ================= FLOATING HAMBURGER & ANIMATION ================= */
+    /* ================= FLOATING HAMBURGER ================= */
     .hamburger {
       display: none;
       position: fixed;
@@ -244,7 +238,6 @@
       transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* ================= MOBILE NAV FADE ================= */
     @media(max-width:768px) {
       .hamburger {
         display: flex;
@@ -266,35 +259,6 @@
         transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
         pointer-events: none;
       }
-
-      /* ================= MOBILE LOGO FIX ================= */
-      @media (max-width: 768px) {
-        .animated-stable-title {
-          font-size: 22px;
-          /* smaller, less distracting */
-          max-width: calc(100% - 80px);
-          /* leaves space for hamburger */
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          animation-duration: 8s;
-          /* slower = calmer */
-        }
-
-        header {
-          padding-right: 70px;
-          /* prevents overlap with hamburger */
-        }
-      }
-
-      @media (max-width: 420px) {
-        .animated-stable-title {
-          font-size: 18px;
-          letter-spacing: 1px;
-        }
-      }
-
-
 
       .nav-active {
         opacity: 1;
@@ -355,55 +319,10 @@
       color: #fff;
       text-decoration: underline;
     }
-
-    /* ================= BACK TO TOP BUTTON ================= */
-    #backToTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #fff;
-      color: #111;
-      padding: 14px 18px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s, transform 0.3s, box-shadow 0.3s;
-      z-index: 999;
-      animation: float 2s infinite ease-in-out;
-    }
-
-    #backToTop.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    #backToTop:hover {
-      background: #ffc371;
-      box-shadow: 0 6px 20px rgba(255, 195, 113, 0.5);
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
-    }
   </style>
 </head>
 
 <body>
-
   <header>
     <a href="#top" class="animated-stable-title">FINCOP PRINTING</a>
     <nav>
@@ -416,10 +335,7 @@
     </nav>
   </header>
 
-  <!-- Floating Hamburger -->
-  <div class="hamburger">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger"><span></span><span></span><span></span></div>
 
   <section class="hero show">
     <h2>Custom Printing Made Easy</h2>
@@ -477,8 +393,8 @@
   <div id="contact-form-container">
     <h2>Request a Quote</h2>
     <form id="contact-form">
-      <input type="text" name="from_name" placeholder="Your Name" required>
-      <input type="email" name="reply_to" placeholder="Your Email" required>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
       <input type="text" name="subject" placeholder="Subject">
       <textarea name="message" rows="5" placeholder="Tell us what you need printed..." required></textarea>
       <button type="submit">Send Message</button>
@@ -489,84 +405,40 @@
     <div>
       📧 <a href="mailto:kgabekp@gmail.com">kgabekp@gmail.com</a><br>
       📧 <a href="mailto:pjpatrician@gmail.com">pjpatrician@gmail.com</a><br><br>
-
       📞 <a href="tel:0826709108">082 670 9108</a><br>
       📞 <a href="tel:0672880105">067 288 0105</a><br><br>
-
-      📍 <a href="https://www.google.com/maps/search/Jacob+Ever+Street+Kaalfontein+Tembisa+1632" target="_blank">
-        Jacob Ever Street, Kaalfontein, Tembisa
-      </a>
+      📍 <a href="https://www.google.com/maps/search/Jacob+Ever+Street+Kaalfontein+Tembisa+1632" target="_blank">Jacob
+        Ever Street, Kaalfontein, Tembisa</a>
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop">↑ Top</button>
-
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const hamburger = document.querySelector('.hamburger');
-      const navLinks = document.querySelector('.nav-links');
+    document.getElementById("contact-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const form = this;
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+      try {
+        // ================= RECAPTCHA TOKEN =================
+        const token = await grecaptcha.execute("6Ld_4l0sAAAAAP1OkBRidWs_FX2tnuemfpPxOoswY", { action: 'submit' });
+        data.recaptchaToken = token;
 
-      // Toggle mobile menu + animate hamburger
-      hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('nav-active');
-        hamburger.classList.toggle('active');
-      });
-
-      // Close mobile menu when a link is clicked
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('nav-active');
-          hamburger.classList.remove('active');
+        // ================= SEND TO NETLIFY FUNCTION =================
+        const res = await fetch("/.netlify/functions/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
         });
-      });
-
-      /* ================= SECTION REVEAL ================= */
-      const sections = document.querySelectorAll("section");
-      const reveal = () => sections.forEach(sec => { if (sec.getBoundingClientRect().top < window.innerHeight - 80) { sec.classList.add("show"); } });
-      window.addEventListener("scroll", reveal);
-      window.addEventListener("load", reveal);
-
-      /* ================= OPEN CONTACT FORM ================= */
-      function openContactForm() {
-        const form = document.getElementById('contact-form-container');
-        form.style.display = 'block';
-        form.scrollIntoView({ behavior: 'smooth' });
-        navLinks.classList.remove('nav-active');
-        hamburger.classList.remove('active');
-      }
-      document.querySelectorAll('.request-quote-link').forEach(el => {
-        el.addEventListener('click', e => { e.preventDefault(); openContactForm(); });
-      });
-
-      /* ================= EMAILJS ================= */
-      emailjs.init("wGgB9fl16KxtauS_E");
-      document.getElementById("contact-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        emailjs.sendForm("service_hdytqqq", "template_5d8z245", this)
-          .then(() => { alert("Message sent successfully!"); this.reset(); }, () => { alert("Failed to send. Please try again."); });
-      });
-
-      /* ================= BACK TO TOP ================= */
-      const backToTop = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { backToTop.classList.add('show'); }
-        else { backToTop.classList.remove('show'); }
-      });
-      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-      /* ================= NAV AUTO HIDE ================= */
-      let lastScroll = 0;
-      const header = document.querySelector('header');
-      window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        if (currentScroll > lastScroll && currentScroll > 100) { header.classList.add('hide'); }
-        else { header.classList.remove('hide'); }
-        lastScroll = currentScroll;
-      });
+        const result = await res.json();
+        if (result.ok) { alert("Message sent successfully!"); form.reset(); }
+        else { alert("Failed to send. " + (result.error || "")); }
+      } catch (err) { console.error(err); alert("Something went wrong. Please try again."); }
     });
   </script>
-
 </body>
 
 </html>
