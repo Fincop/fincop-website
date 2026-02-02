@@ -1,59 +1,46 @@
-// send-email.js
-// ================= Secure contact form handler =================
+import fetch from "node-fetch";
+import sgMail from "@sendgrid/mail";
 
-const fetch = require("node-fetch"); // for reCAPTCHA verification
-const sgMail = require("@sendgrid/mail");
+const fetch = require('node-fetch'); // make sure node-fetch is installed
+const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Your SendGrid API key stored securely in Netlify env
+// ================= SECRET KEYS =================
+// reCAPTCHA secret key comes from Netlify environment variable
+const secretKey = process.env.RECAPTCHA_SECRET_KEY;
 
-exports.handler = async (event) => {
+// SendGrid API key comes from Netlify environment variable
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+
+export async function handler(event, context) {
   try {
-    // Only allow POST requests
-    if (event.httpMethod !== "POST") {
-      return { statusCode: 405, body: "Method Not Allowed" };
-    }
-
     const { name, email, subject, message, recaptchaToken } = JSON.parse(event.body);
 
-    // ================= Verify reCAPTCHA =================
-    const secret = process.env.RECAPTCHA_SECRET; // Hidden secret in Netlify env
-    const recaptchaRes = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `secret=${secret}&response=${recaptchaToken}`,
-      }
-    );
+    // Verify reCAPTCHA
+    const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+    });
 
-    const recaptchaJson = await recaptchaRes.json();
-    if (!recaptchaJson.success || recaptchaJson.score < 0.5) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ ok: false, error: "Failed reCAPTCHA check" }),
-      };
+    const recaptchaData = await recaptchaRes.json();
+    if(!recaptchaData.success || recaptchaData.score < 0.5) {
+      return { statusCode: 400, body: JSON.stringify({ ok:false, error: "Failed reCAPTCHA verification" }) };
     }
 
-    // ================= Send Email via SendGrid =================
+    // Send email
     const msg = {
-      to: "YOUR_EMAIL@gmail.com", // Your email to receive messages
-      from: "noreply@fincop.com", // Must be verified sender in SendGrid
-      subject: subject || "New Contact Form Message",
-      text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
+      to: "pjpatrician@gmail.com",
+      from: "jrxerx@gmail.com",
+      subject: subject || "New Quote Request",
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     };
 
     await sgMail.send(msg);
+    return { statusCode: 200, body: JSON.stringify({ ok:true }) };
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ ok: true }),
-    };
-
-  } catch (err) {
+  } catch(err) {
     console.error(err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ ok: false, error: "Server error" }),
-    };
+    return { statusCode: 500, body: JSON.stringify({ ok:false, error: err.message }) };
   }
-};
+}

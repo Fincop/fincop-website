@@ -1,0 +1,10 @@
+[build]
+  publish = "."        # your site root
+  functions = "netlify/functions" # folder with your Netlify functions
+
+[context.production.environment]
+  SENDGRID_API_KEY = "YOUR_SENDGRID_API_KEY" # Add in Netlify dashboard instead of here for security
+  RECAPTCHA_SECRET_KEY = "YOUR_RECAPTCHA_SECRET_KEY"
+
+[functions]
+  node_bundler = "esbuild" # ensures dependencies like node-fetch work

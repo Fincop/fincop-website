@@ -2,63 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fincop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINCOP PRINTING</title>
 
-  <!-- ================== RECAPTCHA (PUBLIC SITE KEY ONLY) ================== -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ================= RECAPTCHA V3 ================= -->
   <script src="https://www.google.com/recaptcha/api.js?render=6Ld_4l0sAAAAAP1OkBRidWs_FX2tnuemfpPxOosw"></script>
 
-  <!-- ================== INTERNAL CSS ================== -->
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background: #0f172a;
-      color: #e5e7eb;
-      line-height: 1.6;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #020617;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: #e5e7eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hamburger {
-      display: none;
-      cursor: pointer;
+      background: #111;
+      color: #f5f5f5;
+      scroll-behavior: smooth;
     }
 
     section {
-      padding: 6rem 2rem;
-      max-width: 1100px;
-      margin: auto;
+      padding: 80px 8%;
       opacity: 0;
       transform: translateY(40px);
-      transition: all 0.6s ease;
+      transition: all 0.8s ease;
     }
 
     section.show {
@@ -66,187 +37,449 @@
       transform: translateY(0);
     }
 
-    .hero {
-      min-height: 100vh;
+    h2 {
+      font-size: 34px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: #1c1c1c;
+      padding: 25px;
+      border-radius: 8px;
+      transition: 0.3s;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background: #111;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin-top: auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding-top: 120px;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
+      margin-top: 25px;
+      padding: 12px 28px;
+      border-radius: 5px;
+      border: none;
       cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #111;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 8%;
+      background: #111;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      border-bottom: 1px solid #222;
+      transition: transform 0.35s ease;
+    }
+
+    header.hide {
+      transform: translateY(-110%);
+    }
+
+    .animated-stable-title {
+      font-weight: 700;
+      font-size: 36px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(270deg, #2b2d31, #3c3f45, #4a3136, #9b2436, #ff334f);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 5s linear infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      100% {
+        background-position: 100% 0%;
+      }
+    }
+
+    nav {
+      position: relative;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #fff;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: #111;
+      padding: 10px;
+      border-radius: 50%;
+      z-index: 2001;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @media(max-width:768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: 12px;
+        background: #111;
+        flex-direction: column;
+        width: 200px;
+        padding: 15px;
+        border-radius: 8px;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        pointer-events: none;
+      }
+
+      .nav-active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    }
+
+    #contact-form-container {
+      display: none;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #1c1c1c;
+      border-radius: 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      background: #111;
+      color: #fff;
+      border: 1px solid #333;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
     }
 
     footer {
-      background: #020617;
-      padding: 2rem;
-      text-align: center;
+      background: #0a0a0a;
+      padding: 40px 8%;
+      margin-top: 60px;
     }
 
-    /* ================== CONTACT FORM ================== */
-    #contact-form-container {
-      display: none;
-      margin-top: 2rem;
+    footer a {
+      color: #ccc;
+      text-decoration: none;
     }
 
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 6px;
-      border: none;
-    }
-
-    form button {
-      background: #22c55e;
-      color: black;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    footer a:hover {
+      color: #fff;
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <a href="#top" class="animated-stable-title">FINCOP PRINTING</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#products-section">PRODUCTS</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#" class="request-quote-link">REQUEST QUOTE</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- ================== NAV ================== -->
-  <nav>
-    <h2>Fincop</h2>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact" class="request-quote-link">Contact</a>
-    </div>
-  </nav>
+  <div class="hamburger"><span></span><span></span><span></span></div>
 
-  <!-- ================== HERO ================== -->
+  <!-- ================= HERO ================= -->
   <section class="hero show">
-    <div>
-      <h1>Financial & Consulting Solutions</h1>
-      <p>Helping businesses scale securely.</p>
-      <a href="#" class="btn request-quote-link">Request a Quote</a>
+    <h2>Custom Printing Made Easy</h2>
+    <p>High-quality custom apparel, corporate branding, and promotional merchandise delivered with speed and precision.
+    </p>
+    <button class="btn btn-primary request-quote-link">Request a Quote</button>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <section id="products-section">
+    <h2>Our Products</h2>
+    <div class="grid">
+      <div class="card"><img src="images/shirt.png" alt="T-Shirts">
+        <h3>T-Shirts</h3>
+        <p>Premium cotton shirts with vibrant, long-lasting prints.</p>
+      </div>
+      <div class="card"><img src="images/mugs.png" alt="Mugs">
+        <h3>Mugs</h3>
+        <p>Custom printed mugs perfect for gifts or promotions.</p>
+      </div>
+      <div class="card"><img src="images/cap.png" alt="Caps">
+        <h3>Caps</h3>
+        <p>Branded caps ideal for teams and company wear.</p>
+      </div>
+      <div class="card"><img src="images/studentc.png" alt="Business Cards">
+        <h3>Student / Business Cards</h3>
+        <p>High-quality personalized cards for students or businesses.</p>
+      </div>
     </div>
   </section>
 
-  <!-- ================== ABOUT ================== -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>
-      We provide modern financial solutions with a strong focus on security,
-      automation, and growth.
-    </p>
-  </section>
-
-  <!-- ================== SERVICES ================== -->
+  <!-- ================= SERVICES ================= -->
   <section id="services">
     <h2>Our Services</h2>
-    <p>Consulting, analytics, and business optimisation.</p>
-  </section>
-
-  <!-- ================== CONTACT ================== -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-
-    <div id="contact-form-container">
-      <form id="contact-form">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <input type="text" name="subject" placeholder="Subject" required />
-        <textarea name="message" placeholder="Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+    <div class="grid">
+      <div class="card">
+        <h3>Corporate Branding</h3>
+        <p>Uniforms, promotional items and company merchandise.</p>
+      </div>
+      <div class="card">
+        <h3>Event Merchandise</h3>
+        <p>Custom apparel for schools, events and campaigns.</p>
+      </div>
+      <div class="card">
+        <h3>Design Assistance</h3>
+        <p>Professional design refinement for best print results.</p>
+      </div>
     </div>
   </section>
 
-  <!-- ================== FOOTER ================== -->
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <h2>About FINCOP PRINTING</h2>
+    <p style="max-width:700px;margin-top:15px;">FINCOP PRINTING is a modern print-on-demand company focused on quality,
+      affordability and fast turnaround.</p>
+  </section>
+
+  <!-- ================= CONTACT FORM ================= -->
+  <div id="contact-form-container">
+    <h2>Request a Quote</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="subject" placeholder="Subject">
+      <textarea name="message" rows="5" placeholder="Tell us what you need printed..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
   <footer>
-    <p>© 2026 Fincop. All rights reserved.</p>
+    <div>
+      📧 <a href="mailto:kgabekp@gmail.com">kgabekp@gmail.com</a><br>
+      📧 <a href="mailto:pjpatrician@gmail.com">pjpatrician@gmail.com</a><br><br>
+      📞 <a href="tel:0826709108">082 670 9108</a><br>
+      📞 <a href="tel:0672880105">067 288 0105</a><br><br>
+      📍 <a href="https://www.google.com/maps/search/Jacob+Ever+Street+Kaalfontein+Tembisa+1632" target="_blank">Jacob
+        Ever Street, Kaalfontein, Tembisa</a>
+    </div>
   </footer>
 
-  <!-- ================== INTERNAL JAVASCRIPT ================== -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      const form = document.getElementById('contact-form');
 
-      /* ================= SECTION REVEAL ================= */
-      const sections = document.querySelectorAll("section");
+      // Hamburger toggle
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('nav-active');
+      });
 
-      const reveal = () => {
-        sections.forEach(sec => {
-          if (sec.getBoundingClientRect().top < window.innerHeight - 80) {
-            sec.classList.add("show");
-          }
-        });
-      };
-
-      reveal();
-      window.addEventListener("scroll", reveal);
-
-      /* ================= OPEN CONTACT FORM ================= */
-      function openContactForm() {
-        const form = document.getElementById("contact-form-container");
-        form.style.display = "block";
-        form.scrollIntoView({ behavior: "smooth" });
-      }
-
-      document.querySelectorAll(".request-quote-link").forEach(el => {
-        el.addEventListener("click", e => {
-          e.preventDefault();
-          openContactForm();
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('nav-active');
         });
       });
 
-      /* ================= CONTACT FORM SUBMIT ================= */
-      document.getElementById("contact-form").addEventListener("submit", async function (e) {
-        e.preventDefault();
+      // Section reveal
+      const sections = document.querySelectorAll('section');
+      const reveal = () => sections.forEach(sec => {
+        if (sec.getBoundingClientRect().top < window.innerHeight - 80) sec.classList.add('show');
+      });
+      window.addEventListener('scroll', reveal);
+      window.addEventListener('load', reveal);
 
-        const payload = {
-          name: this.name.value,
-          email: this.email.value,
-          subject: this.subject.value,
-          message: this.message.value
+      // Open contact form
+      document.querySelectorAll('.request-quote-link').forEach(el => {
+        el.addEventListener('click', e => { e.preventDefault(); document.getElementById('contact-form-container').style.display = 'block'; });
+      });
+
+      // Form submission with reCAPTCHA
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          subject: form.subject.value,
+          message: form.message.value
         };
 
         try {
-          /* 🔐 reCAPTCHA v3 – PUBLIC SITE KEY */
-          const token = await grecaptcha.execute(
-            "6Ld_4l0sAAAAAP1OkBRidWs_FX2tnuemfpPxOosw",
-            { action: "submit" }
-          );
+          const token = await grecaptcha.execute('6Ld_4l0sAAAAAP1OkBRidWs_FX2tnuemfpPxOosw', { action: 'submit' });
+          data.recaptchaToken = token;
 
-          payload.recaptchaToken = token;
-
-          /* 🚀 Netlify Function (SERVER SIDE EMAIL) */
-          const res = await fetch("/.netlify/functions/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+          const res = await fetch('/.netlify/functions/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
           });
 
           const result = await res.json();
+          if (result.ok) { alert('Message sent successfully!'); form.reset(); }
+          else { alert('Failed to send. ' + (result.error || '')); }
 
-          if (result.ok) {
-            alert("Message sent successfully!");
-            this.reset();
-          } else {
-            alert("Failed to send message.");
-          }
+        } catch (err) { console.error(err); alert('Something went wrong. Please try again.'); }
+      });
 
-        } catch (err) {
-          console.error(err);
-          alert("Something went wrong.");
-        }
+      // Auto-hide header
+      let lastScroll = 0;
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        const current = window.scrollY;
+        if (current > lastScroll && current > 100) header.classList.add('hide');
+        else header.classList.remove('hide');
+        lastScroll = current;
       });
     });
   </script>
-
 </body>
 
 </html>

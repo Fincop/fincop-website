@@ -1,0 +1,9 @@
+{
+  "name": "fincop-site",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@sendgrid/mail": "^7.9.0",
+    "node-fetch": "^3.3.2"
+  }
+}
