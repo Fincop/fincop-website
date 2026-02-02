@@ -1,97 +1,61 @@
 import sgMail from "@sendgrid/mail";
 
-/**
- * SendGrid API key
- * MUST be added in Netlify Dashboard → Environment Variables
- * Key name: SENDGRID_API_KEY
- */
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function handler(event) {
-  // Only allow POST requests
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ ok: false, error: "Method Not Allowed" }),
-    };
-  }
-
   try {
-    // Parse incoming form data
+    if (event.httpMethod !== "POST") {
+      return { statusCode: 405, body: "Method Not Allowed" };
+    }
+
     const data = JSON.parse(event.body);
 
-    /**
-     * Google reCAPTCHA secret key
-     * MUST be added in Netlify Dashboard → Environment Variables
-     * Key name: RECAPTCHA_SECRET_KEY
-     */
+    // Verify reCAPTCHA
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-
-    // =============================
-    // Verify Google reCAPTCHA v3
-    // =============================
-    const recaptchaResponse = await fetch(
+    const recaptchaRes = await fetch(
       "https://www.google.com/recaptcha/api/siteverify",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `secret=${secretKey}&response=${data.recaptchaToken}`,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          secret: secretKey,
+          response: data.recaptchaToken
+        })
       }
     );
 
-    const recaptchaResult = await recaptchaResponse.json();
+    const recaptchaJson = await recaptchaRes.json();
 
-    if (!recaptchaResult.success || recaptchaResult.score < 0.5) {
+    if (!recaptchaJson.success || recaptchaJson.score < 0.5) {
       return {
         statusCode: 400,
-        body: JSON.stringify({
-          ok: false,
-          error: "Failed reCAPTCHA verification",
-        }),
+        body: JSON.stringify({ ok: false, error: "Failed reCAPTCHA verification" })
       };
     }
 
-    // =============================
-    // Send email via SendGrid
-    // =============================
-    const msg = {
-      to: "jrxerx@gmail.com",              // ✅ your email (receiver)
-      from: "no-reply@fincop.co.za",       // ✅ verified sender domain
+    // Send email
+    await sgMail.send({
+      to: "jrxerx@gmail.com",
+      from: "no-reply@fincop.co.za",
       subject: data.subject || "New Contact Form Submission",
-      text: `
-Name: ${data.name}
-Email: ${data.email}
-
-Message:
-${data.message}
-      `,
+      text: `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`,
       html: `
-        <h3>New Contact Form Submission</h3>
         <p><strong>Name:</strong> ${data.name}</p>
         <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${data.message}</p>
-      `,
-    };
-
-    await sgMail.send(msg);
+        <p><strong>Message:</strong> ${data.message}</p>
+      `
+    });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ ok: true }),
+      body: JSON.stringify({ ok: true })
     };
 
-  } catch (error) {
-    console.error("Send email error:", error);
-
+  } catch (err) {
+    console.error("Function error:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        ok: false,
-        error: "Internal Server Error",
-      }),
+      body: JSON.stringify({ ok: false, error: "Server error" })
     };
   }
 }

@@ -1,9 +1,9 @@
 [build]
-  publish = "."                # Root directory (index.html is here)
-  functions = "netlify/functions"
-
-[dev]
+  publish = "."
   functions = "netlify/functions"
 
 [functions]
-  node_bundler = "esbuild"     # ensures dependencies like node-fetch work
+  node_bundler = "esbuild"
+
+[dev]
+  functions = "netlify/functions"
